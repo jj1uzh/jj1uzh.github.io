@@ -1,34 +1,33 @@
 <!DOCTYPE html>
 <html lang="ja">
-
   <head>
     <meta charset="UTF-8">
     <title>jj1uzh</title>
     <style>
       body {
-        font-family: serif;
-        background-color: linen;
-        margin: 0;
-        padding: 1em;
+          font-family: monospace;
+          background-color: linen;
+          margin: 0;
+          padding: 1em;
       }
-      dt {
-	  font-family: monospace;
-	  font-weight: bold;
-      }
-      dd {
-	  margin: 1em;
+      summary {
+          font-weight: bolder;
       }
     </style>
   </head>
-  
+
   <body>
     <h2>メモ</h2>
-    <dl>
-      <dt> JISキーボードのMacでUS配列にしたときにチルダとかバックスラッシュを打つためのkarabiner-elementsの設定 </dt>
-        <dd> international1 (_ キー) -> `，international3 (\ キー) -> \ </dd>
-      <dt> ibusのトレイの文字の色を変える </dt>
-        <dd> dconf-editor </dd>
-    </dl>
+    <details>
+      <summary>JISキーボードのMacでUS配列にしたときにチルダとかバックスラッシュを打つためのkarabiner-elementsの設定</summary>
+      <ul>
+        <li>international1 (_ キー) -> `</li>
+        <li>international3 (\ キー) -> \</li>
+      </ul>
+    </details>
+    <details>
+      <summary>ibusのトレイの文字の色を変える</summary>
+      <p>dconf-editor</p>
+    </details>
   </body>
-
 </html>
