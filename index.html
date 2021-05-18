@@ -29,5 +29,10 @@
       <summary>ibusのトレイの文字の色を変える</summary>
       <p>dconf-editor</p>
     </details>
+    <details>
+      <summary>ibusのcomponentをビルドした後，それを指定してibusを起動すると"Can not execute default config program" と出てエラー (ibus-skk固有?)</summary>
+      <p>例えばibus-skkのビルドでインストールのprefixが /usr/local のとき， /usr/local/share/ibus/component/ に skk.xml だけしかない状態になっていると思われる．<br>
+         この場所に /usr/share/ibus/component/ にある他のxmlファイルをリンクするなどすればおk</p>
+    </details>
   </body>
 </html>
