@@ -5,7 +5,7 @@
     <title>メモ</title>
     <style>
       body {
-          font-family: monospace;
+          font-family: sans-serif;
           background-color: linen;
           margin: 0;
           padding: 1em;
@@ -16,6 +16,18 @@
       summary span.date {
           color: grey;
           margin-left: 1em;
+      }
+      pre {
+          background-color: black;
+          color: white;
+          overflow: scroll;
+          padding: 0 1em 0 1em;
+      }
+      code {
+          font-family: monospace;
+      }
+      details {
+          margin: 0.5em;
       }
     </style>
   </head>
@@ -37,6 +49,20 @@
       <summary>ibusのcomponentをビルドした後，それを指定してibusを起動すると"Can not execute default config program" と出てエラー<span class="date">2021-05-19</span></summary>
       <p>例えばibus-skkのビルドでインストールのprefixが /usr/local のとき， /usr/local/share/ibus/component/ に skk.xml だけしかない状態になっていると思われる．<br>
          この場所に /usr/share/ibus/component/ にある他のxmlファイルをリンクするなどすればおk</p>
+    </details>
+    <details>
+      <summary>CMakeで ~/.local 等のライブラリを使ってビルドする<span class="date">2021-09-06</span></summary>
+      <pre><code>
+cmake -DCMAKE_INSTALL_PREFIX=/home/user/.local -DCMAKE_POLICY_DEFAULT_CMP0074=NEW -D<i>[PACKAGE]</i>_ROOT=/home/user/.local ..
+      </code></pre>
+    </details>
+    <details>
+      <summary>fcitx5-configtoolでアイコンが表示されない<span class="date">2021-09-23</span></summary>
+      <ul>
+        <a target="_blank" href="https://wiki.archlinux.org/title/Qt#Configuration_of_Qt5_apps_under_environments_other_than_KDE_Plasma">https://wiki.archlinux.org/title/Qt#Configuration_of_Qt5_apps_under_environments_other_than_KDE_Plasma</a>
+        <li>qt5ct をインストールして一度開き、設定を保存</li>
+        <li>QT_QPA_PLATFORMTHEME=qt5ct</li>
+      </ul>
     </details>
   </body>
 </html>
