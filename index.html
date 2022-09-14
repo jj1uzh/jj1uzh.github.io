@@ -1,82 +1,88 @@
 <!DOCTYPE html>
 <html lang="ja">
-  <head>
-    <meta charset="UTF-8">
-    <title>メモ</title>
-    <style>
-      body {
-          font-family: sans-serif;
-          background-color: linen;
-          margin: 0;
-          padding: 1em;
-      }
-      summary {
-          font-weight: bolder;
-      }
-      summary span.date {
-          color: grey;
-          margin-left: 1em;
-      }
-      pre {
-          background-color: black;
-          color: white;
-          overflow: scroll;
-          padding: 0 1em 0 1em;
-      }
-      code {
-          font-family: monospace;
-      }
-      details {
-          margin: 0.5em;
-      }
-    </style>
-  </head>
+    <head>
+        <meta charset="UTF-8">
+        <title>JJ1UZH</title>
+        <style>
+         body {
+             font-family: sans-serif;
+             background-color: linen;
+             margin: 0;
+             padding: 1em;
+         }
+         summary {
+             font-weight: bolder;
+         }
+         summary span.date {
+             color: grey;
+             margin-left: 1em;
+         }
+         pre {
+             background-color: black;
+             color: white;
+             overflow: scroll;
+             padding: 0 1em 0 1em;
+         }
+         code {
+             font-family: monospace;
+         }
+         details {
+             margin: 0.5em;
+         }
+        </style>
+    </head>
 
-  <body>
-    <h2>メモ</h2>
-    <details>
-      <summary>JISキーボードのMacでUS配列にしたときにチルダとかバックスラッシュを打つためのkarabiner-elementsの設定<span class="date">2021-05-10</span></summary>
-      <ul>
-        <li>international1 (_ キー) -> `</li>
-        <li>international3 (\ キー) -> \</li>
-      </ul>
-    </details>
-    <details>
-      <summary>ibusのトレイの文字の色を変える<span class="date">2021-05-10</span></summary>
-      <p>dconf-editor</p>
-    </details>
-    <details>
-      <summary>ibusのcomponentをビルドした後，それを指定してibusを起動すると"Can not execute default config program" と出てエラー<span class="date">2021-05-19</span></summary>
-      <p>例えばibus-skkのビルドでインストールのprefixが /usr/local のとき， /usr/local/share/ibus/component/ に skk.xml だけしかない状態になっていると思われる．<br>
-         この場所に /usr/share/ibus/component/ にある他のxmlファイルをリンクするなどすればおk</p>
-    </details>
-    <details>
-      <summary>CMakeで ~/.local 等のライブラリを使ってビルドする<span class="date">2021-09-06</span></summary>
-      <pre><code>
+    <body>
+        <h1>JJ1UZH</h1>
+        <h2>諸々</h2>
+        <ul>
+            <li><a href="./a/2022-09-09-hatena-intern.html">はてなのサマーインターン2022に参加した</a></li>
+        </ul>
+
+        <h2>メモ</h2>
+        <details>
+            <summary>JISキーボードのMacでUS配列にしたときにチルダとかバックスラッシュを打つためのkarabiner-elementsの設定<span class="date">2021-05-10</span></summary>
+            <ul>
+                <li>international1 (_ キー) -> `</li>
+                <li>international3 (\ キー) -> \</li>
+            </ul>
+        </details>
+        <details>
+            <summary>ibusのトレイの文字の色を変える<span class="date">2021-05-10</span></summary>
+            <p>dconf-editor</p>
+        </details>
+        <details>
+            <summary>ibusのcomponentをビルドした後，それを指定してibusを起動すると"Can not execute default config program" と出てエラー<span class="date">2021-05-19</span></summary>
+            <p>例えばibus-skkのビルドでインストールのprefixが /usr/local のとき， /usr/local/share/ibus/component/ に skk.xml だけしかない状態になっていると思われる．<br>
+                この場所に /usr/share/ibus/component/ にある他のxmlファイルをリンクするなどすればおk</p>
+        </details>
+        <details>
+            <summary>CMakeで ~/.local 等のライブラリを使ってビルドする<span class="date">2021-09-06</span></summary>
+            <pre><code>
 cmake -DCMAKE_INSTALL_PREFIX=/home/user/.local -DCMAKE_POLICY_DEFAULT_CMP0074=NEW -D<i>[PACKAGE]</i>_ROOT=/home/user/.local ..
-      </code></pre>
-    </details>
-    <details>
-      <summary>fcitx5-configtoolでアイコンが表示されない<span class="date">2021-09-23</span></summary>
-      <ul>
-        <a target="_blank" href="https://wiki.archlinux.org/title/Qt#Configuration_of_Qt5_apps_under_environments_other_than_KDE_Plasma">https://wiki.archlinux.org/title/Qt#Configuration_of_Qt5_apps_under_environments_other_than_KDE_Plasma</a>
-        <li>qt5ct をインストールして一度開き、設定を保存</li>
-        <li>QT_QPA_PLATFORMTHEME=qt5ct</li>
-      </ul>
-    </details>
-    <details>
-      <summary>LinuxでAirPodsに接続できない/ペアリングできない<span class="date">2021-09-27</span></summary>
-      <p>/etc/bluetooth/main.conf で ControllerMode = bredr に変更</p>
-      <p>一度ペアリングできたら戻しても大丈夫(と思われる)</p>
-    </details>
+            </code></pre>
+        </details>
+        <details>
+            <summary>fcitx5-configtoolでアイコンが表示されない<span class="date">2021-09-23</span></summary>
+            <ul>
+                <a target="_blank" href="https://wiki.archlinux.org/title/Qt#Configuration_of_Qt5_apps_under_environments_other_than_KDE_Plasma">https://wiki.archlinux.org/title/Qt#Configuration_of_Qt5_apps_under_environments_other_than_KDE_Plasma</a>
+                <li>qt5ct をインストールして一度開き、設定を保存</li>
+                <li>QT_QPA_PLATFORMTHEME=qt5ct</li>
+            </ul>
+        </details>
+        <details>
+            <summary>LinuxでAirPodsに接続できない/ペアリングできない<span class="date">2021-09-27</span></summary>
+            <p>/etc/bluetooth/main.conf で ControllerMode = bredr に変更</p>
+            <p>一度ペアリングできたら戻しても大丈夫(と思われる)</p>
+        </details>
 
-    <!-- template
+        <!-- template
 
-    <details>
-      <summary>  <span class="date">2021-09-27</span></summary>
+             <details>
+             <summary>  <span class="date">2021-09-27</span></summary>
 
-    </details>
+             </details>
 
-      -->
-  </body>
+        -->
+    </body>
 </html>

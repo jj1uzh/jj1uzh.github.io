@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2022-09-11 Sun 20:46 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>はてなサマーインターン2022に参加した</title>
+<meta name="generator" content="Org Mode" />
+<style>
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+</style>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">はてなサマーインターン2022に参加した</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orgdfc9244">1. 応募したきっかけ</a></li>
+<li><a href="#org95f3909">2. 選考</a></li>
+<li><a href="#org1325d35">3. 前半：講義パート</a></li>
+<li><a href="#orgdf67105">4. 後半：開発パート</a></li>
+<li><a href="#orgc95317b">5. 成果発表</a></li>
+<li><a href="#org29134d0">6. リモートワークについての雑感</a></li>
+<li><a href="#org56cc023">7. まとめ</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgdfc9244" class="outline-2">
+<h2 id="orgdfc9244"><span class="section-number-2">1.</span> 応募したきっかけ</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+　まずインターンに行こうと思ったきっかけは，先輩がインターンは行ったほうがいいぜと言っていたことと，
+大学の必修単位に読み替えられることです．
+はてなに応募した理由は，内容がおもしろそうだったのと，技術スタックにScalaがあったからでした．
+Scalaでの開発であれば多少慣れていたし，好きな言語なのでいいなと思ったのです．
+結局Scalaは使わなかったんですけどね．
+</p>
+</div>
+</div>
+
+<div id="outline-container-org95f3909" class="outline-2">
+<h2 id="org95f3909"><span class="section-number-2">2.</span> 選考</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+　面接はリモートで行われました(インターン自体がフルリモート)．
+応募したきっかけや技術的な興味の他，GitHubでの活動についても話して，評価していただいたのかなと思います．
+活動といっても，主にLinuxのツール系の小さいOSSにバグフィックスや機能追加を送るくらいなのですが，
+オープンな開発を推奨するはてなの理念と合っていたのかもしれません．たぶん．
+</p>
+</div>
+</div>
+
+<div id="outline-container-org1325d35" class="outline-2">
+<h2 id="org1325d35"><span class="section-number-2">3.</span> 前半：講義パート</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+　「Web API」「インフラ」「コンテナ」「マイクロサービス」「RDBMS」「フロントエンド」「Kubernetes」「デザイン」の講義がありました．
+それぞれ1時間で，体系的に駆け足で解説するという感じでした．
+個人的には，「Web API」「インフラ」「コンテナ」「RDBMS」「Kubernetes」は頭にスッと入ってきましたが，「フロントエンド」
+は分からないところも多かったです(Reactを触ったことがなかったからだと思う)．
+フロントエンド技術は本当に活発ですごいな〜と思いつつ，あまり触れていないので，Reactか何かやりたいですね．
+「デザイン」は全然触れてこなかったことなのでとても興味深かったです．
+</p>
+
+<p>
+　最後の1日半は課題パートで，Go,Kubernetes,gRPCといったスタックのWebサービスに指定された機能+αを実装するものでした．
+いわゆるマイクロサービスで，protobufからコードのテンプレート生成→gRPCで通信というのを実際に作って体験しました．
+普段はモノレポでモデルやDBを共有する方式で開発しているので，
+「コードを共有するより重複させる」というやり方は新鮮でした．
+ただ全体のメンバーが少ないときはやはりモノレポの方がいいと思うし，バランスが難しそうという印象．
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgdf67105" class="outline-2">
+<h2 id="orgdf67105"><span class="section-number-2">4.</span> 後半：開発パート</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+　自分が配属されたのはサービスプラットフォームチームというところで，内容は
+「社内のアカウント基盤に実験的にTOTP(時刻ベースのワンタイムパスワード)を実装する」というものでした．
+TOTPというのはGoogle Authenticator等でQRコードを読み取って6桁のコードを入力するやつで，最近ではいろんなサービスで使えるようになっています．
+インターンの課題という観点でTOTPのアルゴリズムの部分を実装しようかという話もあったのですが，GoのOTPライブラリを使うことになりました．
+それでもしくみを知らないで使うのは健全ではないので，まずRFCを眺めるところから始まります．
+</p>
+
+<p>
+　RFCを読んだ感想は，結構単純だけどよく考えられて作られているな〜でした．
+普段Google Authenticatorを使うときは何か魔法のようなことが行われていると思っていたのですが，
+しくみを知ってみればなるほどな，という感じです．
+サーバーとクライアントで鍵を共有して，それぞれが同じアルゴリズムでコードを生成して比較する，それだけなのですが，
+コードが数字6桁になるように短縮したり30秒は同じコードが出力されるようになっていて，使い勝手のことも考えられています．
+認証方法はそれ自体が安全でも，ユーザーの手順が面倒だと誰も設定しなかったりバイパスするようにしてしまって逆に安全性が落ちますから，よいことだと思います．
+それと，暗号学的な安全性も担保されています．
+出力コードに偏りが無く，前の値を知っていても今の値を知ることはできないようです．
+論文を読んだわけではなくてRFCに書いてあることを鵜呑みにしたのですが，暗号学でありがちなAdversaryを仮定して云々みたいな証明が行われているんだと思います．
+</p>
+
+<p>
+　なんとなく仕様を理解したら，実装に入ります．ライブラリを使うからすぐできるやろと思ったのですが，
+そうは問屋が卸しませんでした．
+まず今回実験的にDynamoDBを使ったのですが，自分は初めて触れたのでその仕様を把握するのに戸惑いました．
+加えてDBのGoインターフェースの使い勝手に慣れるのにも時間がかかりました．
+Goはコード生成しないといけなかったり，structのメンバーがnilで初期化されて謎panicしたりして困ります．
+割りきった言語なので仕方ないですけどね．その分良いところもあるので一長一短だと思います(当り障りのない主張)．
+</p>
+
+<p>
+　もう一つ困ったのがセッション管理です．
+パスワード→TOTPの間など一時セッションが必要な箇所がいくつかあって，そこを上手くやるしくみを作ったほうがよかったのですが時間がありませんでした．
+</p>
+
+<p>
+　結局のところ，最終的な成果としては，「TOTP有効化・無効化」「TOTP・リカバリーコードを使った認証」は一応できるようになりました．
+それと，クライアントとサーバー間で多少タイムスタンプがずれても認証を通すようにもしてみました．
+コードを書いていたら認証アプリの表示が次のコードになってしまって書き直した，という経験がある人もいるかもしれません(自分もある)が，
+コードは鍵とタイムスタンプから一意に出せるので，サーバー側でひとつ前のコードを計算することもできるんですよね．
+だから大体のサービスではひとつ前のコードでも認証できるようにしていると思います．
+これはしくみを知らないと想像しにくいことかもしれません．
+</p>
+
+<p>
+　細かい仕様で直さないといけない箇所は残してしまったのですが，最低限動くところは作れたかと思います．
+最後にフロントのデザインもして頂いたのですが，デザインが付くと良いものを作っているなあというのを感じられてよかったです．
+他のインターン生の方も言っていましたが，デザインは開発のモチベにも直結していて大事なんだなと思い知りました．
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgc95317b" class="outline-2">
+<h2 id="orgc95317b"><span class="section-number-2">5.</span> 成果発表</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+　最終日に全体で成果発表が行われました．他のインターン生の方々は1週間で機能リリースしていたり，協業他社との兼ね合いに取り組んだりしていて
+すごいなぁと思いました．やはり手が早いのは大事ですね．
+自分は認証機能の実装なので慎重にならざるを得ないとはいえ(言い訳)，もっと手早く作れたらよかったです．
+それと，自分の発表に対する他のインターン生からの質問で，スライドには書いてないけど実装する上で相談したようなところをいくつか訊かれて
+ちょっと驚きました．同年代だと思いますが経験が違うなと思いました．
+</p>
+</div>
+</div>
+
+<div id="outline-container-org29134d0" class="outline-2">
+<h2 id="org29134d0"><span class="section-number-2">6.</span> リモートワークについての雑感</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+　感じたこととして，みなさんリモートですごく上手く仕事をしてるなぁというのがあります．
+はてなはもともと京都と東京にオフィスがあって
+リモートワークしていたのと，2020年以降もコミュニケーションを円滑にする工夫をしているみたいです．
+自分が配属されたプラットフォームチームでは，夕会の一部として「ひとこと日記」というのをやっています．
+メンバー全員が同じページに短い日記を書いて，それを読み上げつつ雑談して盛り上るというものなのですが，
+これのおかげで違和感なくチームに参加できたと思います．
+仕事仲間とはいえ，やっぱりある程度趣味や考え方などを知っていたほうが関わりやすいですね．
+他にも勉強会や「ほたて」，朝会(一度だけ参加)などがリモートで行われていて楽しかったです．
+自分は物理出社派だったのですが，これくらい上手くやっているとリモートもいいなと思いました．
+</p>
+</div>
+</div>
+
+<div id="outline-container-org56cc023" class="outline-2">
+<h2 id="org56cc023"><span class="section-number-2">7.</span> まとめ</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+　インターンに参加するまでは，今やっているアルバイトと違う経験が得られるのかをちょっと懸念していたのですが，杞憂でした．
+機能を実装する上での設計の相談や開発手法，リモートでの働きかたなど多くを得ました．
+</p>
+
+<p>
+　インターン中，開発を支えてくださったチームの皆様やはてなの社員の皆様に感謝申し上げます．ありがとうございました!
+</p>
+
+<p>
+m(_ _)m
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2022-09-11 Sun 20:46</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
