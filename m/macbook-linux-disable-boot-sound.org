@@ -1,0 +1,39 @@
+#+TITLE: LinuxをインストールしたMacbookで起動音を無効にする
+#+SETUPFILE: ../common.org
+
+※ 自己責任でお願いします。
+
+** 環境
+- =Linux 5.15.10-arch1-1=
+- Macbook Pro Retina Early 2015
+
+** 手順
+#+BEGIN_SRC sh
+$> efivar -l | grep 'SystemAudioVolume'
+7c436110-ab2a-4bbb-a880-fe41995c9f82-SystemAudioVolumeDB
+7c436110-ab2a-4bbb-a880-fe41995c9f82-SystemAudioVolume
+#+END_SRC
+
+#+BEGIN_SRC sh
+$> efivar -n "$(efivar -l | grep 'SystemAudioVolume$')" -p
+GUID: 7c436110-ab2a-4bbb-a880-fe41995c9f82
+Name: "SystemAudioVolume"
+Attributes:
+        Non-Volatile
+        Boot Service Access
+        Runtime Service Access
+Value:
+00000000  <なんか0じゃない値>                                                |.               |
+#+END_SRC
+
+になっているはずなので、0にする。
+
+1. =/sys/firmware/efi/efivars= に移動
+2. =# printf "\x07\x00\x00\x00\x00" > SystemAudioVolume-ほげほげ=
+ - できない場合、 =# chattr <+->i SystemAudioVolume-ほげほげ=
+3. =SystemAudioVolumeDB= についても同様
+
+以上
+
+** 参考
+- [[http://atodorov.org/blog/2015/04/27/disabling-macbook-startup-sound-in-linux/]]

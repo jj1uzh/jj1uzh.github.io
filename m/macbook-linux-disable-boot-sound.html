@@ -3,10 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
 <head>
-<!-- 2022-09-14 Wed 21:00 -->
+<!-- 2022-09-14 Wed 20:59 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>JJ1UZH</title>
+<title>LinuxをインストールしたMacbookで起動音を無効にする</title>
 <meta name="generator" content="Org Mode" />
 <style>
   #content { max-width: 60em; margin: auto; }
@@ -197,81 +197,84 @@
 </head>
 <body>
 <div id="content" class="content">
-<h1 class="title">JJ1UZH</h1>
+<h1 class="title">LinuxをインストールしたMacbookで起動音を無効にする</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>&#30446;&#27425;</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orgc9a22a2">1. 環境</a></li>
+<li><a href="#org6d1602a">2. 手順</a></li>
+<li><a href="#orgcacf895">3. 参考</a></li>
+</ul>
+</div>
+</div>
+<p>
+※ 自己責任でお願いします。
+</p>
 
-<div id="outline-container-org156bb81" class="outline-2">
-<h2 id="org156bb81"><span class="section-number-2">1.</span> 諸々</h2>
+<div id="outline-container-orgc9a22a2" class="outline-2">
+<h2 id="orgc9a22a2"><span class="section-number-2">1.</span> 環境</h2>
 <div class="outline-text-2" id="text-1">
 <ul class="org-ul">
-<li><a href="./a/2022-09-09-hatena-intern.html">はてなインターン2022に参加した</a></li>
+<li><code>Linux 5.15.10-arch1-1</code></li>
+<li>Macbook Pro Retina Early 2015</li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org7c92a40" class="outline-2">
-<h2 id="org7c92a40"><span class="section-number-2">2.</span> メモ</h2>
+<div id="outline-container-org6d1602a" class="outline-2">
+<h2 id="org6d1602a"><span class="section-number-2">2.</span> 手順</h2>
 <div class="outline-text-2" id="text-2">
-<ul class="org-ul">
-<li><a href="./m/macbook-linux-disable-boot-sound.html">LinuxをインストールしたMacbookで起動音を無効にする</a></li>
-</ul>
-</div>
-</div>
-
-<div id="outline-container-org70f746b" class="outline-2">
-<h2 id="org70f746b"><span class="section-number-2">3.</span> ページにするほどでもないメモ</h2>
-<div class="outline-text-2" id="text-3">
-<dl class="org-dl">
-<dt>JISキーボードのMacでUS配列にしたときにチルダとかバックスラッシュを打つためのkarabiner-elementsの設定(2021-05-10)</dt><dd><ul class="org-ul">
-<li>international1 (_ キー) -&gt; `</li>
-<li>international3 (\ キー) -&gt; \</li>
-</ul></dd>
-</dl>
-
-
-<dl class="org-dl">
-<dt>ibusのトレイの文字の色を変える(2021-05-10)</dt><dd><ul class="org-ul">
-<li>dconf-editor</li>
-</ul></dd>
-</dl>
-
-
-<dl class="org-dl">
-<dt>ibusのcomponentをビルドした後，それを指定してibusを起動すると"Can not execute default config program" と出てエラー(2021-05-19)</dt><dd><ul class="org-ul">
-<li>例えばibus-skkのビルドでインストールのprefixが <i>usr/local のとき， /usr/local/share/ibus/component</i> に skk.xml だけしかない状態になっていると思われる．
-この場所に <i>usr/share/ibus/component</i> にある他のxmlファイルをリンクするなどすればおk&lt;/p&gt;</li>
-</ul></dd>
-</dl>
-
-
-<dl class="org-dl">
-<dt>CMakeで ~/.local 等のライブラリを使ってビルドする(2021-09-06)</dt><dd></dd>
-</dl>
 <div class="org-src-container">
-<pre class="src src-sh">cmake -DCMAKE_INSTALL_PREFIX=/home/user/.local -DCMAKE_POLICY_DEFAULT_CMP0074=NEW -D [PACKAGE]_ROOT=/home/user/.local ..
+<pre class="src src-sh">$&gt; efivar -l | grep 'SystemAudioVolume'
+7c436110-ab2a-4bbb-a880-fe41995c9f82-SystemAudioVolumeDB
+7c436110-ab2a-4bbb-a880-fe41995c9f82-SystemAudioVolume
 </pre>
 </div>
 
+<div class="org-src-container">
+<pre class="src src-sh">$&gt; efivar -n "$(efivar -l | grep 'SystemAudioVolume$')" -p
+GUID: 7c436110-ab2a-4bbb-a880-fe41995c9f82
+Name: "SystemAudioVolume"
+Attributes:
+        Non-Volatile
+        Boot Service Access
+        Runtime Service Access
+Value:
+00000000  &lt;なんか0じゃない値&gt;                                                |.               |
+</pre>
+</div>
 
-<dl class="org-dl">
-<dt>fcitx5-configtoolでアイコンが表示されない(2021-09-23)</dt><dd><a href="https://wiki.archlinux.org/title/Qt#Configuration_of_Qt5_apps_under_environments_other_than_KDE_Plasma">https://wiki.archlinux.org/title/Qt#Configuration_of_Qt5_apps_under_environments_other_than_KDE_Plasma</a>
+<p>
+になっているはずなので、0にする。
+</p>
+
+<ol class="org-ol">
+<li><code>/sys/firmware/efi/efivars</code> に移動</li>
+<li><code># printf "\x07\x00\x00\x00\x00" &gt; SystemAudioVolume-ほげほげ</code>
 <ul class="org-ul">
-<li>qt5ct をインストールして一度開き、設定を保存</li>
-<li>QT<sub>QPA</sub><sub>PLATFORMTHEME</sub>=qt5ct</li>
-</ul></dd>
-</dl>
+<li>できない場合、 <code># chattr &lt;+-&gt;i SystemAudioVolume-ほげほげ</code></li>
+</ul></li>
+<li><code>SystemAudioVolumeDB</code> についても同様</li>
+</ol>
 
+<p>
+以上
+</p>
+</div>
+</div>
 
-<dl class="org-dl">
-<dt>LinuxでAirPodsに接続できない/ペアリングできない(2021-09-27)</dt><dd><ul class="org-ul">
-<li>/etc/bluetooth/main.conf で ControllerMode = bredr に変更</li>
-<li>一度ペアリングできたら戻しても大丈夫(と思われる)</li>
-</ul></dd>
-</dl>
+<div id="outline-container-orgcacf895" class="outline-2">
+<h2 id="orgcacf895"><span class="section-number-2">3.</span> 参考</h2>
+<div class="outline-text-2" id="text-3">
+<ul class="org-ul">
+<li><a href="http://atodorov.org/blog/2015/04/27/disabling-macbook-startup-sound-in-linux/">http://atodorov.org/blog/2015/04/27/disabling-macbook-startup-sound-in-linux/</a></li>
+</ul>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="date">Created: 2022-09-14 Wed 21:00</p>
+<p class="date">Created: 2022-09-14 Wed 20:59</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
