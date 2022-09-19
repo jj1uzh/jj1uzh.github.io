@@ -6,6 +6,7 @@
 - [[./a/2022-09-09-hatena-intern.html][はてなインターン2022に参加した]]
 
 ** メモ
+- [[./emacs.html][Emacsメモ]]
 - [[./m/macbook-linux-disable-boot-sound.html][LinuxをインストールしたMacbookで起動音を無効にする]]
 
 ** ページにするほどでもないメモ

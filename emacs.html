@@ -3,10 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
 <head>
-<!-- 2022-09-19 Mon 17:09 -->
+<!-- 2022-09-19 Mon 17:21 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>JJ1UZH</title>
+<title>Emacsメモ</title>
 <meta name="generator" content="Org Mode" />
 <style>
   #content { max-width: 60em; margin: auto; }
@@ -197,82 +197,36 @@
 </head>
 <body>
 <div id="content" class="content">
-<h1 class="title">JJ1UZH</h1>
+<h1 class="title">Emacsメモ</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>&#30446;&#27425;</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org2a206fd">1. go-modeだけLSPでformat-on-saveする</a></li>
+</ul>
+</div>
+</div>
 
-<div id="outline-container-org02fa51f" class="outline-2">
-<h2 id="org02fa51f"><span class="section-number-2">1.</span> 諸々</h2>
+<div id="outline-container-org2a206fd" class="outline-2">
+<h2 id="org2a206fd"><span class="section-number-2">1.</span> go-modeだけLSPでformat-on-saveする</h2>
 <div class="outline-text-2" id="text-1">
-<ul class="org-ul">
-<li><a href="./a/2022-09-09-hatena-intern.html">はてなインターン2022に参加した</a></li>
-</ul>
-</div>
-</div>
-
-<div id="outline-container-orgbc2799b" class="outline-2">
-<h2 id="orgbc2799b"><span class="section-number-2">2.</span> メモ</h2>
-<div class="outline-text-2" id="text-2">
-<ul class="org-ul">
-<li><a href="./emacs.html">Emacsメモ</a></li>
-<li><a href="./m/macbook-linux-disable-boot-sound.html">LinuxをインストールしたMacbookで起動音を無効にする</a></li>
-</ul>
-</div>
-</div>
-
-<div id="outline-container-orgb3811a1" class="outline-2">
-<h2 id="orgb3811a1"><span class="section-number-2">3.</span> ページにするほどでもないメモ</h2>
-<div class="outline-text-2" id="text-3">
-<dl class="org-dl">
-<dt>JISキーボードのMacでUS配列にしたときにチルダとかバックスラッシュを打つためのkarabiner-elementsの設定(2021-05-10)</dt><dd><ul class="org-ul">
-<li>international1 (_ キー) -&gt; `</li>
-<li>international3 (\ キー) -&gt; \</li>
-</ul></dd>
-</dl>
-
-
-<dl class="org-dl">
-<dt>ibusのトレイの文字の色を変える(2021-05-10)</dt><dd><ul class="org-ul">
-<li>dconf-editor</li>
-</ul></dd>
-</dl>
-
-
-<dl class="org-dl">
-<dt>ibusのcomponentをビルドした後，それを指定してibusを起動すると"Can not execute default config program" と出てエラー(2021-05-19)</dt><dd><ul class="org-ul">
-<li>例えばibus-skkのビルドでインストールのprefixが <i>usr/local のとき， /usr/local/share/ibus/component</i> に skk.xml だけしかない状態になっていると思われる．
-この場所に <i>usr/share/ibus/component</i> にある他のxmlファイルをリンクするなどすればおk&lt;/p&gt;</li>
-</ul></dd>
-</dl>
-
-
-<dl class="org-dl">
-<dt>CMakeで ~/.local 等のライブラリを使ってビルドする(2021-09-06)</dt><dd></dd>
-</dl>
+<p>
+<code>add-hook</code> の第4引数がnon-nilならばバッファローカルになる
+</p>
 <div class="org-src-container">
-<pre class="src src-sh">cmake -DCMAKE_INSTALL_PREFIX=/home/user/.local -DCMAKE_POLICY_DEFAULT_CMP0074=NEW -D [PACKAGE]_ROOT=/home/user/.local ..
+<pre class="src src-emacs-lisp">(with-eval-after-load 'go-mode
+  (add-hook 'go-mode-hook
+	    (lambda () (add-hook 'before-save-hook
+				 (lambda () (ignore-errors (lsp-format-buffer)))
+				 nil
+				 'local))))
 </pre>
 </div>
-
-
-<dl class="org-dl">
-<dt>fcitx5-configtoolでアイコンが表示されない(2021-09-23)</dt><dd><a href="https://wiki.archlinux.org/title/Qt#Configuration_of_Qt5_apps_under_environments_other_than_KDE_Plasma">https://wiki.archlinux.org/title/Qt#Configuration_of_Qt5_apps_under_environments_other_than_KDE_Plasma</a>
-<ul class="org-ul">
-<li>qt5ct をインストールして一度開き、設定を保存</li>
-<li>QT<sub>QPA</sub><sub>PLATFORMTHEME</sub>=qt5ct</li>
-</ul></dd>
-</dl>
-
-
-<dl class="org-dl">
-<dt>LinuxでAirPodsに接続できない/ペアリングできない(2021-09-27)</dt><dd><ul class="org-ul">
-<li>/etc/bluetooth/main.conf で ControllerMode = bredr に変更</li>
-<li>一度ペアリングできたら戻しても大丈夫(と思われる)</li>
-</ul></dd>
-</dl>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="date">Created: 2022-09-19 Mon 17:09</p>
+<p class="date">Created: 2022-09-19 Mon 17:21</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

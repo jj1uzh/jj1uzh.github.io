@@ -1,0 +1,13 @@
+#+TITLE: Emacsメモ
+#+SETUPFILE: ./common.org
+
+** go-modeだけLSPでformat-on-saveする
+=add-hook= の第4引数がnon-nilならばバッファローカルになる
+#+BEGIN_SRC emacs-lisp
+(with-eval-after-load 'go-mode
+  (add-hook 'go-mode-hook
+            (lambda () (add-hook 'before-save-hook
+                                 (lambda () (ignore-errors (lsp-format-buffer)))
+                                 nil
+                                 'local))))
+#+END_SRC
