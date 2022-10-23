@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
 <head>
-<!-- 2022-09-14 Wed 20:59 -->
+<!-- 2022-10-24 月 01:35 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>LinuxをインストールしたMacbookで起動音を無効にする</title>
@@ -190,7 +190,7 @@
     { font-size: 10px; font-weight: bold; white-space: nowrap; }
   .org-info-js_search-highlight
     { background-color: #ffff00; color: #000000; font-weight: bold; }
-  .org-svg { width: 90%; }
+  .org-svg { }
 </style>
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css" href="/s.css">
@@ -202,9 +202,9 @@
 <h2>&#30446;&#27425;</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgc9a22a2">1. 環境</a></li>
-<li><a href="#org6d1602a">2. 手順</a></li>
-<li><a href="#orgcacf895">3. 参考</a></li>
+<li><a href="#org1564d3e">1. 環境</a></li>
+<li><a href="#org29716ae">2. 手順</a></li>
+<li><a href="#org44fcece">3. 参考</a></li>
 </ul>
 </div>
 </div>
@@ -212,8 +212,8 @@
 ※ 自己責任でお願いします。
 </p>
 
-<div id="outline-container-orgc9a22a2" class="outline-2">
-<h2 id="orgc9a22a2"><span class="section-number-2">1.</span> 環境</h2>
+<div id="outline-container-org1564d3e" class="outline-2">
+<h2 id="org1564d3e"><span class="section-number-2">1.</span> 環境</h2>
 <div class="outline-text-2" id="text-1">
 <ul class="org-ul">
 <li><code>Linux 5.15.10-arch1-1</code></li>
@@ -222,8 +222,8 @@
 </div>
 </div>
 
-<div id="outline-container-org6d1602a" class="outline-2">
-<h2 id="org6d1602a"><span class="section-number-2">2.</span> 手順</h2>
+<div id="outline-container-org29716ae" class="outline-2">
+<h2 id="org29716ae"><span class="section-number-2">2.</span> 手順</h2>
 <div class="outline-text-2" id="text-2">
 <div class="org-src-container">
 <pre class="src src-sh">$&gt; efivar -l | grep 'SystemAudioVolume'
@@ -237,9 +237,9 @@
 GUID: 7c436110-ab2a-4bbb-a880-fe41995c9f82
 Name: "SystemAudioVolume"
 Attributes:
-        Non-Volatile
-        Boot Service Access
-        Runtime Service Access
+	Non-Volatile
+	Boot Service Access
+	Runtime Service Access
 Value:
 00000000  &lt;なんか0じゃない値&gt;                                                |.               |
 </pre>
@@ -264,8 +264,8 @@ Value:
 </div>
 </div>
 
-<div id="outline-container-orgcacf895" class="outline-2">
-<h2 id="orgcacf895"><span class="section-number-2">3.</span> 参考</h2>
+<div id="outline-container-org44fcece" class="outline-2">
+<h2 id="org44fcece"><span class="section-number-2">3.</span> 参考</h2>
 <div class="outline-text-2" id="text-3">
 <ul class="org-ul">
 <li><a href="http://atodorov.org/blog/2015/04/27/disabling-macbook-startup-sound-in-linux/">http://atodorov.org/blog/2015/04/27/disabling-macbook-startup-sound-in-linux/</a></li>
@@ -274,8 +274,11 @@ Value:
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="date">Created: 2022-09-14 Wed 20:59</p>
-<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+
+<div id="postamble" class="status postamble">
+<a href="/">TOP</a>
+<p>JJ1UZH</p>
+</div>
 </div>
 </body>
 </html>

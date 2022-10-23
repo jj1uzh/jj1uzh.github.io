@@ -1,0 +1,25 @@
+#+TITLE: MiVue Manager Pro をWineで動かす
+#+SETUPFILE: ../common.org
+
+後から気付いたけど，動画は普通にmp4で保存されてるのでMiVue Manager PROはGPS情報を見たい以外は必要ない．
+
+** 環境
+- Linux 6.0.2-arch1-1 x86_64
+- macbook pro early 2015
+- Arch Linux
+
+** 手順
+1. Wineをインストール
+2. ~lib32-gst-plugins-good~ をインストール
+   - goodじゃなくてもいいかもしれない
+   - これを入れないと動画を再生できなかった．
+3. MiVue Managerのインストーラをダウンロードして展開，wineで実行
+4. [[http://www.codecguide.com/download_kl.htm][K-Lite Codec Pack]]をインストール
+   - Standardで動いたけどBasicでもいいかもしれない
+5. LinuxでSDカードをマウントしてWineで見られるようにしておく
+6. MiVue Manger Pro.exeを実行
+
+** バグなど
+- 全画面にしないとうまく映らない(左上だけが映ってる)．
+- 右上の逆カメラのプレビューも↑と同様なかんじでうまくうつらない．
+- ファイルが切り替わるときにハングすることがある．

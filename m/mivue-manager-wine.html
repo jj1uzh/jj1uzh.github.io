@@ -6,7 +6,7 @@
 <!-- 2022-10-24 月 01:35 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Emacsメモ</title>
+<title>MiVue Manager Pro をWineで動かす</title>
 <meta name="generator" content="Org Mode" />
 <style>
   #content { max-width: 60em; margin: auto; }
@@ -197,31 +197,61 @@
 </head>
 <body>
 <div id="content" class="content">
-<h1 class="title">Emacsメモ</h1>
+<h1 class="title">MiVue Manager Pro をWineで動かす</h1>
 <div id="table-of-contents" role="doc-toc">
 <h2>&#30446;&#27425;</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgd1e01a7">1. go-modeだけLSPでformat-on-saveする</a></li>
+<li><a href="#org810d8cd">1. 環境</a></li>
+<li><a href="#org0251915">2. 手順</a></li>
+<li><a href="#org16d212b">3. バグなど</a></li>
+</ul>
+</div>
+</div>
+<p>
+後から気付いたけど，動画は普通にmp4で保存されてるのでMiVue Manager PROはGPS情報を見たい以外は必要ない．
+</p>
+
+<div id="outline-container-org810d8cd" class="outline-2">
+<h2 id="org810d8cd"><span class="section-number-2">1.</span> 環境</h2>
+<div class="outline-text-2" id="text-1">
+<ul class="org-ul">
+<li>Linux 6.0.2-arch1-1 x86<sub>64</sub></li>
+<li>macbook pro early 2015</li>
+<li>Arch Linux</li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgd1e01a7" class="outline-2">
-<h2 id="orgd1e01a7"><span class="section-number-2">1.</span> go-modeだけLSPでformat-on-saveする</h2>
-<div class="outline-text-2" id="text-1">
-<p>
-<code>add-hook</code> の第4引数がnon-nilならばバッファローカルになる
-</p>
-<div class="org-src-container">
-<pre class="src src-emacs-lisp">(with-eval-after-load 'go-mode
-  (add-hook 'go-mode-hook
-	    (lambda () (add-hook 'before-save-hook
-				 (lambda () (ignore-errors (lsp-format-buffer)))
-				 nil
-				 'local))))
-</pre>
+<div id="outline-container-org0251915" class="outline-2">
+<h2 id="org0251915"><span class="section-number-2">2.</span> 手順</h2>
+<div class="outline-text-2" id="text-2">
+<ol class="org-ol">
+<li>Wineをインストール</li>
+<li><code>lib32-gst-plugins-good</code> をインストール
+<ul class="org-ul">
+<li>goodじゃなくてもいいかもしれない</li>
+<li>これを入れないと動画を再生できなかった．</li>
+</ul></li>
+<li>MiVue Managerのインストーラをダウンロードして展開，wineで実行</li>
+<li><a href="http://www.codecguide.com/download_kl.htm">K-Lite Codec Pack</a>をインストール
+<ul class="org-ul">
+<li>Standardで動いたけどBasicでもいいかもしれない</li>
+</ul></li>
+<li>LinuxでSDカードをマウントしてWineで見られるようにしておく</li>
+<li>MiVue Manger Pro.exeを実行</li>
+</ol>
 </div>
+</div>
+
+<div id="outline-container-org16d212b" class="outline-2">
+<h2 id="org16d212b"><span class="section-number-2">3.</span> バグなど</h2>
+<div class="outline-text-2" id="text-3">
+<ul class="org-ul">
+<li>全画面にしないとうまく映らない(左上だけが映ってる)．</li>
+<li>右上の逆カメラのプレビューも↑と同様なかんじでうまくうつらない．</li>
+<li>ファイルが切り替わるときにハングすることがある．</li>
+</ul>
 </div>
 </div>
 </div>

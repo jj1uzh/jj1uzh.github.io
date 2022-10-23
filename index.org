@@ -8,6 +8,7 @@
 ** メモ
 - [[./emacs.html][Emacsメモ]]
 - [[./m/macbook-linux-disable-boot-sound.html][LinuxをインストールしたMacbookで起動音を無効にする]]
+- [[./m/mivue-manager-wine.html][MiVue ManagerをWineで動かす]]
 
 ** ページにするほどでもないメモ
 - JISキーボードのMacでUS配列にしたときにチルダとかバックスラッシュを打つためのkarabiner-elementsの設定(2021-05-10) ::
