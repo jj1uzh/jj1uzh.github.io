@@ -1,4 +1,5 @@
 #+TITLE: MiVue Manager Pro をWineで動かす
+#+DATE: 2022-10-24
 #+SETUPFILE: ../common.org
 
 後から気付いたけど，動画は普通にmp4で保存されてるのでMiVue Manager PROはGPS情報を見たい以外は必要ない．
