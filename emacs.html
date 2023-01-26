@@ -3,10 +3,11 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
 <head>
-<!-- 2022-10-24 月 01:50 -->
+<!-- 2023-01-26 木 18:27 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Emacsメモ</title>
+<meta name="author" content="miyachi" />
 <meta name="generator" content="Org Mode" />
 <style>
   #content { max-width: 60em; margin: auto; }
@@ -202,25 +203,59 @@
 <h2>&#30446;&#27425;</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgb37c93e">1. go-modeだけLSPでformat-on-saveする</a></li>
+<li><a href="#orgf403b5b">1. eshell</a></li>
+<li><a href="#org10168f2">2. その他</a>
+<ul>
+<li><a href="#org75379a5">2.1. go-modeだけLSPでformat-on-saveする</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgb37c93e" class="outline-2">
-<h2 id="orgb37c93e"><span class="section-number-2">1.</span> go-modeだけLSPでformat-on-saveする</h2>
+<div id="outline-container-orgf403b5b" class="outline-2">
+<h2 id="orgf403b5b"><span class="section-number-2">1.</span> eshell</h2>
 <div class="outline-text-2" id="text-1">
+<p>
+現状 vterm を使っていて特に不満は無いが， eshell も使ってみたら新たな世界が広がるかもしれない(？)のでセットアップしてみる．
+</p>
+
+<p>
+まずプロンプトで現状のzshのプロンプトを再現する：
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(<span style="font-weight: bold;">setq</span> eshell-prompt-function
+      (<span style="font-weight: bold;">lambda</span> () (concat <span style="font-style: italic;">"\n"</span>
+                         (number-to-string eshell-last-command-status)
+                         <span style="font-style: italic;">" ["</span> (user-login-name) <span style="font-style: italic;">"@"</span> (system-name) <span style="font-style: italic;">" "</span> (eshell/pwd) <span style="font-style: italic;">"]\n&gt; "</span>)))
+(<span style="font-weight: bold;">setq</span> eshell-prompt-regexp <span style="font-style: italic;">"^[</span><span style="font-style: italic;">^</span><span style="font-style: italic;">&gt;]*&gt; "</span>)
+</pre>
+</div>
+<p>
+ただ困ったことに， <code>eshell-last-command-status</code> はEmacs内部で実装されているコマンド(ls,cdなど)に対しては変化しない．TODO．
+</p>
+</div>
+</div>
+
+<div id="outline-container-org10168f2" class="outline-2">
+<h2 id="org10168f2"><span class="section-number-2">2.</span> その他</h2>
+<div class="outline-text-2" id="text-2">
+</div>
+<div id="outline-container-org75379a5" class="outline-3">
+<h3 id="org75379a5"><span class="section-number-3">2.1.</span> go-modeだけLSPでformat-on-saveする</h3>
+<div class="outline-text-3" id="text-2-1">
 <p>
 <code>add-hook</code> の第4引数がnon-nilならばバッファローカルになる
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp">(with-eval-after-load 'go-mode
+<pre class="src src-emacs-lisp">(<span style="font-weight: bold;">with-eval-after-load</span> 'go-mode
   (add-hook 'go-mode-hook
-	    (lambda () (add-hook 'before-save-hook
-				 (lambda () (ignore-errors (lsp-format-buffer)))
-				 nil
-				 'local))))
+            (<span style="font-weight: bold;">lambda</span> () (add-hook 'before-save-hook
+                                 (<span style="font-weight: bold;">lambda</span> () (<span style="font-weight: bold;">ignore-errors</span> (lsp-format-buffer)))
+                                 nil
+                                 'local))))
 </pre>
+</div>
 </div>
 </div>
 </div>
@@ -230,7 +265,7 @@
 <div id="postamble" class="status postamble">
 <a href="/">TOP</a>
 <p>Date: </p>
-<p>Last modified at: 2022-10-24 月 01:00</p>
+<p>Last modified at: 2023-01-26 木 18:27</p>
 </div>
 </div>
 </body>
