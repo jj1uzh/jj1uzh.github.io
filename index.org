@@ -2,13 +2,15 @@
 #+SETUPFILE: ./common.org
 #+OPTIONS: toc:nil
 
-** 諸々
-- [[./a/2022-09-09-hatena-intern.html][はてなインターン2022に参加した]]
-
 ** メモ
-- [[./emacs.html][Emacsメモ]]
 - [[./m/macbook-linux-disable-boot-sound.html][LinuxをインストールしたMacbookで起動音を無効にする]]
 - [[./m/mivue-manager-wine.html][MiVue ManagerをWineで動かす]]
+
+*** Emacs
+- [[./emacs.html][Emacsメモ]]
+
+** 諸々
+- [[./a/2022-09-09-hatena-intern.html][はてなインターン2022に参加した]]
 
 ** ページにするほどでもないメモ
 - JISキーボードのMacでUS配列にしたときにチルダとかバックスラッシュを打つためのkarabiner-elementsの設定(2021-05-10) ::
