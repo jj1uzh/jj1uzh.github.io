@@ -1,0 +1,4 @@
+#+TITLE: tmp
+#+SETUPFILE: ../common.org
+
+tmp

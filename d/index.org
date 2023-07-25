@@ -1,0 +1,6 @@
+#+TITLE: 雑記
+#+SETUPFILE: ../common.org
+
+#+MACRO: ls (eval (let ((files (directory-files (file-name-directory buffer-file-name) nil "^[0-9-]*\.html$"))links) (dolist (file files) (push (format "- [[./%s][%s]]\n" file (substring file 0 -5)) links)) (string-join links)))
+
+{{{ls}}}

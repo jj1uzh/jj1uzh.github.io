@@ -1,4 +1,4 @@
-SRC:=$(shell find . -type f -name '*.org' -print)
+SRC:=$(shell find . -type f -name '*.org' -not -name 'common.org' -print)
 DST:=$(patsubst %.org,%.html,$(SRC))
 
 all: $(DST)
