@@ -1,4 +1,54 @@
-#+TITLE: tmp
+#+TITLE: org-modeで画像貼りつけたい
 #+SETUPFILE: ../common.org
+#+DATE: <2023-07-26 Wed 23:10>
 
-tmp
+org-modeでブログとか書くときに画像コピペしたい．
+テキストはコピーした状態でyankできるけど画像はできない．
+ダウンロードしてリンク形式をinsertする，みたいな．
+
+と思ったけど，ちょっと見てみた感じdnd(Drag and Drop)でやったほうがやりやすそう．
+
+~dnd-protocol-alist~ を見てみると，
+
+#+BEGIN_SRC
+(("^file:///" . dnd-open-local-file)
+ ("^file://" . dnd-open-file)
+ ("^file:" . dnd-open-local-file)
+ ("^\\(https?\\|ftp\\|file\\|nfs\\)://" . dnd-open-file))
+#+END_SRC
+
+実際画像をdropしたときに何が入ってるのかよくわからんけど，現状画像をFirefoxからドロップすると
+ダウンロードされるっぽいので，httpのところに適当な関数を入れてやればいいのかな．
+第二引数のactionってなんだろう．まあいいか．
+
+やり方はこれでよさそうなので，どうやって画像ダウンロードして保存するか．
+request.elを使えばよさそうなので調べてみる．
+
+READMEの例では
+
+#+BEGIN_SRC
+  (request "http://httpbin.org/get"
+  :encoding 'binary
+  :complete (cl-function
+             (lambda (&key response &allow-other-keys)
+               (message "Done: %s" (request-response-status-code response)))))
+#+END_SRC
+
+ってなってる．
+バイナリってどうやって保存するんだろう．
+[https://emacs.stackexchange.com/questions/59449/how-do-i-save-raw-bytes-into-a-file]によると
+
+#+BEGIN_SRC
+  (with-temp-buffer
+    (toggle-enable-multibyte-characters)
+    (set-buffer-file-coding-system 'raw-text)
+    (seq-doseq (char binary-data)
+      (insert char))
+    (write-region nil nil "~/char-inserted.wav"))
+#+END_SRC
+
+やってみたけどなんか書き出せてない．request-response-dataの使い方？
+
+わからん．明日やる．
+
+関係ないけど，orgでタイムスタンプを入れるの，C-u C-u C-c . が早い．

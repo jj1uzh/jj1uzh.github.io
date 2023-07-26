@@ -3,10 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
 <head>
-<!-- 2023-07-26 Wed 02:01 -->
+<!-- 2023-07-26 Wed 23:11 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>tmp</title>
+<title>org-modeで画像貼りつけたい</title>
 <meta name="generator" content="Org Mode" />
 <style>
   #content { max-width: 60em; margin: auto; }
@@ -197,17 +197,84 @@
 </head>
 <body>
 <div id="content" class="content">
-<h1 class="title">tmp</h1>
+<h1 class="title">org-modeで画像貼りつけたい</h1>
 <p>
-tmp
+org-modeでブログとか書くときに画像コピペしたい．
+テキストはコピーした状態でyankできるけど画像はできない．
+ダウンロードしてリンク形式をinsertする，みたいな．
+</p>
+
+<p>
+と思ったけど，ちょっと見てみた感じdnd(Drag and Drop)でやったほうがやりやすそう．
+</p>
+
+<p>
+<code>dnd-protocol-alist</code> を見てみると，
+</p>
+
+<pre class="example">
+(("^file:///" . dnd-open-local-file)
+ ("^file://" . dnd-open-file)
+ ("^file:" . dnd-open-local-file)
+ ("^\\(https?\\|ftp\\|file\\|nfs\\)://" . dnd-open-file))
+</pre>
+
+<p>
+実際画像をdropしたときに何が入ってるのかよくわからんけど，現状画像をFirefoxからドロップすると
+ダウンロードされるっぽいので，httpのところに適当な関数を入れてやればいいのかな．
+第二引数のactionってなんだろう．まあいいか．
+</p>
+
+<p>
+やり方はこれでよさそうなので，どうやって画像ダウンロードして保存するか．
+request.elを使えばよさそうなので調べてみる．
+</p>
+
+<p>
+READMEの例では
+</p>
+
+<pre class="example">
+(request "http://httpbin.org/get"
+:encoding 'binary
+:complete (cl-function
+	   (lambda (&amp;key response &amp;allow-other-keys)
+	     (message "Done: %s" (request-response-status-code response)))))
+</pre>
+
+<p>
+ってなってる．
+バイナリってどうやって保存するんだろう．
+[<a href="https://emacs.stackexchange.com/questions/59449/how-do-i-save-raw-bytes-into-a-file">https://emacs.stackexchange.com/questions/59449/how-do-i-save-raw-bytes-into-a-file</a>]によると
+</p>
+
+<pre class="example">
+(with-temp-buffer
+  (toggle-enable-multibyte-characters)
+  (set-buffer-file-coding-system 'raw-text)
+  (seq-doseq (char binary-data)
+    (insert char))
+  (write-region nil nil "~/char-inserted.wav"))
+</pre>
+
+<p>
+やってみたけどなんか書き出せてない．request-response-dataの使い方？
+</p>
+
+<p>
+わからん．明日やる．
+</p>
+
+<p>
+関係ないけど，orgでタイムスタンプを入れるの，C-u C-u C-c . が早い．
 </p>
 </div>
 <div id="postamble" class="status">
 
 <div id="postamble" class="status postamble">
 <a href="/">TOP</a>
-<p>Date: </p>
-<p>Last modified at: 2023-07-26 Wed 02:00</p>
+<p>Date: 2023-07-26 Wed 23:10</p>
+<p>Last modified at: 2023-07-26 Wed 23:11</p>
 </div>
 </div>
 </body>
