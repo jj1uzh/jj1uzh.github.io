@@ -1,6 +1,34 @@
 #+TITLE: Emacsメモ
 #+SETUPFILE: ./common.org
 
+** org-mode
+*** drag-and-dropでブラウザから画像をダウンロードしてリンクを入れる
+request.elを使う．
+#+BEGIN_SRC emacs-lisp
+(defun my/org-insert-uri-image (uri action)
+  (if (not (eq major-mode 'org-mode))
+      (dnd-open-file uri action) ; if not in org-mode, use default function.
+    (require 'request)
+    (request uri
+      :encoding 'binary
+      :complete (cl-function
+                 (lambda (&key data response &allow-other-keys)
+                   (let* ((ext (pcase (request-response-header response "content-type")
+                                 ("image/jpeg" ".jpeg")
+                                 ("image/png" ".png")
+                                 (typ "")))
+                          (fname (format "./%s%s"
+                                         (format-time-string "%Y-%m-%d_%H-%M-%S"
+                                                             (current-time))
+                                         ext)))
+                     (with-temp-buffer
+                       (insert data)
+                       (write-region nil nil fname))
+                     (insert (format "[[%s]]" fname))))))))
+
+(push '("^\\(https?\\)://" . my/org-insert-uri-image) dnd-protocol-alist)
+#+END_SRC
+
 ** eshell
 現状 vterm を使っていて特に不満は無いが， eshell も使ってみたら新たな世界が広がるかもしれない(？)のでセットアップしてみる．
 
@@ -14,7 +42,7 @@
 #+END_SRC
 ただ困ったことに， ~eshell-last-command-status~ はEmacs内部で実装されているコマンド(ls,cdなど)に対しては変化しない．TODO．
 
-** その他
+** lsp
 *** go-modeだけLSPでformat-on-saveする
 =add-hook= の第4引数がnon-nilならばバッファローカルになる
 #+BEGIN_SRC emacs-lisp

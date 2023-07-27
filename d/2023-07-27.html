@@ -3,10 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
 <head>
-<!-- 2023-07-27 Thu 21:58 -->
+<!-- 2023-07-27 Thu 22:17 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>雑記</title>
+<title>org-modeで画像貼りつけたい(2)</title>
 <meta name="generator" content="Org Mode" />
 <style>
   #content { max-width: 60em; margin: auto; }
@@ -197,19 +197,76 @@
 </head>
 <body>
 <div id="content" class="content">
-<h1 class="title">雑記</h1>
-<ul class="org-ul">
-<li><a href="./2023-07-27.html">./2023-07-27.html</a></li>
-<li><a href="./2023-07-26.html">./2023-07-26.html</a></li>
-<li><a href="./2023-07-25.html">./2023-07-25.html</a></li>
-</ul>
+<h1 class="title">org-modeで画像貼りつけたい(2)</h1>
+<p>
+<a href="./2023-07-26.html">昨日</a>の続き．:completeに渡す関数を適切にする．:completeに渡す関数の中でエラーになっても
+何もでてこないのでやりにくいな．
+</p>
+
+<pre class="example">
+(defun my/org-insert-uri-image (uri _action)
+  (require 'request)
+  (request uri
+	   :encoding 'binary
+	   :complete (cl-function
+		      (lambda (&amp;key data response &amp;allow-other-keys)
+			(message "Done: %S" (request-response-header response "content-type"))
+			(with-current-buffer (get-buffer-create (current-time-string))
+			  (insert data))))))
+</pre>
+
+<p>
+だいたいはこれでよさそう．image-modeにしたら見れた．あとは調整．
+</p>
+
+<p>
+Google Photosの場合はcontent-dispositionというヘッダにファイル名が入ってるけど，
+一般にそうかは分からないので，content-typeを拡張子にして，名前はタイムスタンプにする．
+</p>
+
+<p>
+<img src="./2023-07-27_21-55-11.jpeg" alt="2023-07-27_21-55-11.jpeg" /> <img src="./2023-07-27_22-12-15.jpeg" alt="2023-07-27_22-12-15.jpeg" />
+</p>
+
+<p>
+できた〜
+</p>
+
+<p>
+コードは：
+</p>
+<pre class="example">
+(defun my/org-insert-uri-image (uri _action)
+  (require 'request)
+  (request uri
+	   :encoding 'binary
+	   :complete (cl-function
+		      (lambda (&amp;key data response &amp;allow-other-keys)
+			(let* ((ext (pcase (request-response-header response "content-type")
+				      ("image/jpeg" ".jpeg")
+				      ("image/png" ".png")
+				      (typ "")))
+			       (fname (format "./%s%s"
+					      (format-time-string "%Y-%m-%d_%H-%M-%S"
+								  (current-time))
+					      ext)))
+			  (with-temp-buffer
+			    (insert data)
+			    (write-region nil nil fname))
+			  (insert (format "[[%s]]" fname)))))))
+</pre>
+
+<p>
+雑記一覧ページ，マクロで生成してるので新しくページを追加してもmakeが反応しない．うーむ．
+普通に追加していったほうが早い．敗北感…
+</p>
 </div>
 <div id="postamble" class="status">
 
 <div id="postamble" class="status postamble">
 <a href="/">TOP</a>
-<p>Date: </p>
-<p>Last modified at: 2023-07-27 Thu 21:58</p>
+<p>Date: 2023-07-27 Thu 21:26</p>
+<p>Last modified at: 2023-07-27 Thu 22:17</p>
 </div>
 </div>
 </body>

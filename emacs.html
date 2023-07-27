@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
 <head>
-<!-- 2023-07-26 Wed 00:47 -->
+<!-- 2023-07-27 Thu 22:14 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Emacsメモ</title>
@@ -202,19 +202,63 @@
 <h2>&#30446;&#27425;</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgfde415e">1. eshell</a></li>
-<li><a href="#orga5e087b">2. その他</a>
+<li><a href="#orgc663780">1. org-mode</a>
 <ul>
-<li><a href="#orgca0c1b4">2.1. go-modeだけLSPでformat-on-saveする</a></li>
+<li><a href="#org3ff0d69">1.1. drag-and-dropでブラウザから画像をダウンロードしてリンクを入れる</a></li>
+</ul>
+</li>
+<li><a href="#orge3b60ea">2. eshell</a></li>
+<li><a href="#org53635e9">3. lsp</a>
+<ul>
+<li><a href="#org49d0289">3.1. go-modeだけLSPでformat-on-saveする</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgfde415e" class="outline-2">
-<h2 id="orgfde415e"><span class="section-number-2">1.</span> eshell</h2>
+<div id="outline-container-orgc663780" class="outline-2">
+<h2 id="orgc663780"><span class="section-number-2">1.</span> org-mode</h2>
 <div class="outline-text-2" id="text-1">
+</div>
+<div id="outline-container-org3ff0d69" class="outline-3">
+<h3 id="org3ff0d69"><span class="section-number-3">1.1.</span> drag-and-dropでブラウザから画像をダウンロードしてリンクを入れる</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+request.elを使う．
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(<span style="font-weight: bold;">defun</span> <span style="font-weight: bold;">my/org-insert-uri-image</span> (uri action)
+  (<span style="font-weight: bold;">if</span> (not (eq major-mode 'org-mode))
+      (dnd-open-file uri action) <span style="font-weight: bold; font-style: italic;">; </span><span style="font-weight: bold; font-style: italic;">if not in org-mode, use default function.</span>
+    (<span style="font-weight: bold;">require</span> '<span style="font-weight: bold; text-decoration: underline;">request</span>)
+    (request uri
+      <span style="font-weight: bold;">:encoding</span> 'binary
+      <span style="font-weight: bold;">:complete</span> (<span style="font-weight: bold;">cl-function</span>
+                 (<span style="font-weight: bold;">lambda</span> (<span style="font-weight: bold; text-decoration: underline;">&amp;key</span> data response <span style="font-weight: bold; text-decoration: underline;">&amp;allow-other-keys</span>)
+                   (<span style="font-weight: bold;">let*</span> ((ext (<span style="font-weight: bold;">pcase</span> (request-response-header response <span style="font-style: italic;">"content-type"</span>)
+                                 (<span style="font-style: italic;">"image/jpeg"</span> <span style="font-style: italic;">".jpeg"</span>)
+                                 (<span style="font-style: italic;">"image/png"</span> <span style="font-style: italic;">".png"</span>)
+                                 (typ <span style="font-style: italic;">""</span>)))
+                          (fname (format <span style="font-style: italic;">"./%s%s"</span>
+                                         (format-time-string <span style="font-style: italic;">"%Y-%m-%d_%H-%M-%S"</span>
+                                                             (current-time))
+                                         ext)))
+                     (<span style="font-weight: bold;">with-temp-buffer</span>
+                       (insert data)
+                       (write-region nil nil fname))
+                     (insert (format <span style="font-style: italic;">"[[%s]]"</span> fname))))))))
+
+(<span style="font-weight: bold;">push</span> '(<span style="font-style: italic;">"^</span><span style="font-weight: bold; font-style: italic;">\\</span><span style="font-weight: bold; font-style: italic;">(</span><span style="font-style: italic;">https?</span><span style="font-weight: bold; font-style: italic;">\\</span><span style="font-weight: bold; font-style: italic;">)</span><span style="font-style: italic;">://"</span> . my/org-insert-uri-image) dnd-protocol-alist)
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orge3b60ea" class="outline-2">
+<h2 id="orge3b60ea"><span class="section-number-2">2.</span> eshell</h2>
+<div class="outline-text-2" id="text-2">
 <p>
 現状 vterm を使っていて特に不満は無いが， eshell も使ってみたら新たな世界が広がるかもしれない(？)のでセットアップしてみる．
 </p>
@@ -236,13 +280,13 @@
 </div>
 </div>
 
-<div id="outline-container-orga5e087b" class="outline-2">
-<h2 id="orga5e087b"><span class="section-number-2">2.</span> その他</h2>
-<div class="outline-text-2" id="text-2">
+<div id="outline-container-org53635e9" class="outline-2">
+<h2 id="org53635e9"><span class="section-number-2">3.</span> lsp</h2>
+<div class="outline-text-2" id="text-3">
 </div>
-<div id="outline-container-orgca0c1b4" class="outline-3">
-<h3 id="orgca0c1b4"><span class="section-number-3">2.1.</span> go-modeだけLSPでformat-on-saveする</h3>
-<div class="outline-text-3" id="text-2-1">
+<div id="outline-container-org49d0289" class="outline-3">
+<h3 id="org49d0289"><span class="section-number-3">3.1.</span> go-modeだけLSPでformat-on-saveする</h3>
+<div class="outline-text-3" id="text-3-1">
 <p>
 <code>add-hook</code> の第4引数がnon-nilならばバッファローカルになる
 </p>
@@ -264,7 +308,7 @@
 <div id="postamble" class="status postamble">
 <a href="/">TOP</a>
 <p>Date: </p>
-<p>Last modified at: 2023-07-26 Wed 00:36</p>
+<p>Last modified at: 2023-07-27 Thu 22:14</p>
 </div>
 </div>
 </body>

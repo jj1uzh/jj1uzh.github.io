@@ -1,0 +1,52 @@
+#+TITLE: org-modeで画像貼りつけたい(2)
+#+SETUPFILE: ../common.org
+#+DATE: <2023-07-27 Thu 21:26>
+
+[[./2023-07-26.html][昨日]]の続き．:completeに渡す関数を適切にする．:completeに渡す関数の中でエラーになっても
+何もでてこないのでやりにくいな．
+
+#+BEGIN_SRC
+(defun my/org-insert-uri-image (uri _action)
+  (require 'request)
+  (request uri
+           :encoding 'binary
+           :complete (cl-function
+                      (lambda (&key data response &allow-other-keys)
+                        (message "Done: %S" (request-response-header response "content-type"))
+                        (with-current-buffer (get-buffer-create (current-time-string))
+                          (insert data))))))
+#+END_SRC
+
+だいたいはこれでよさそう．image-modeにしたら見れた．あとは調整．
+
+Google Photosの場合はcontent-dispositionというヘッダにファイル名が入ってるけど，
+一般にそうかは分からないので，content-typeを拡張子にして，名前はタイムスタンプにする．
+
+[[./2023-07-27_21-55-11.jpeg]] [[./2023-07-27_22-12-15.jpeg]]
+
+できた〜
+
+コードは：
+#+BEGIN_SRC
+(defun my/org-insert-uri-image (uri _action)
+  (require 'request)
+  (request uri
+           :encoding 'binary
+           :complete (cl-function
+                      (lambda (&key data response &allow-other-keys)
+                        (let* ((ext (pcase (request-response-header response "content-type")
+                                      ("image/jpeg" ".jpeg")
+                                      ("image/png" ".png")
+                                      (typ "")))
+                               (fname (format "./%s%s"
+                                              (format-time-string "%Y-%m-%d_%H-%M-%S"
+                                                                  (current-time))
+                                              ext)))
+                          (with-temp-buffer
+                            (insert data)
+                            (write-region nil nil fname))
+                          (insert (format "[[%s]]" fname)))))))
+#+END_SRC
+
+雑記一覧ページ，マクロで生成してるので新しくページを追加してもmakeが反応しない．うーむ．
+普通に追加していったほうが早い．敗北感…
