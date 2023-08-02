@@ -1,0 +1,16 @@
+#+TITLE: eshell関連
+#+DATE: <2023-08-03 Thu>
+#+SETUPFILE: ../common.org
+
+** eshell
+現状 vterm を使っていて特に不満は無いが， eshell も使ってみたら新たな世界が広がるかもしれない(？)のでセットアップしてみる．
+
+まずプロンプトで現状のzshのプロンプトを再現する：
+#+BEGIN_SRC emacs-lisp
+(setq eshell-prompt-function
+      (lambda () (concat "\n"
+                         (number-to-string eshell-last-command-status)
+                         " [" (user-login-name) "@" (system-name) " " (eshell/pwd) "]\n> ")))
+(setq eshell-prompt-regexp "^[^>]*> ")
+#+END_SRC
+ただ困ったことに， ~eshell-last-command-status~ はEmacs内部で実装されているコマンド(ls,cdなど)に対しては変化しない．TODO．

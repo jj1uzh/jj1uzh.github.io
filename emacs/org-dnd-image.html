@@ -3,10 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
 <head>
-<!-- 2023-08-03 Thu 00:45 -->
+<!-- 2023-08-03 Thu 00:10 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>JJ1UZH</title>
+<title>drag-and-dropでブラウザから画像をダウンロードしてリンクを入れる</title>
 <meta name="generator" content="Org Mode" />
 <style>
   #content { max-width: 60em; margin: auto; }
@@ -197,57 +197,45 @@
 </head>
 <body>
 <div id="content" class="content">
-<h1 class="title">JJ1UZH</h1>
-
-<div id="outline-container-org0a5a1dc" class="outline-2">
-<h2 id="org0a5a1dc"><span class="section-number-2">1.</span> メモ</h2>
-<div class="outline-text-2" id="text-1">
-</div>
-<div id="outline-container-org3eaaaa4" class="outline-3">
-<h3 id="org3eaaaa4"><span class="section-number-3">1.1.</span> Emacs</h3>
-<div class="outline-text-3" id="text-1-1">
-<ul class="org-ul">
-<li><a href="./emacs/org-dnd-image.html">drag-and-dropでブラウザから画像をダウンロードしてリンクを入れる</a></li>
-</ul>
-</div>
-</div>
-
-<div id="outline-container-org0e8eeb8" class="outline-3">
-<h3 id="org0e8eeb8"><span class="section-number-3">1.2.</span> i3</h3>
-<div class="outline-text-3" id="text-1-2">
+<h1 class="title">drag-and-dropでブラウザから画像をダウンロードしてリンクを入れる</h1>
 <p>
-TODO
+request.elを使う．
 </p>
-</div>
-</div>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(<span style="font-weight: bold;">defun</span> <span style="font-weight: bold;">my/org-insert-uri-image</span> (uri action)
+  (<span style="font-weight: bold;">if</span> (not (eq major-mode 'org-mode))
+      (dnd-open-file uri action)
+    (<span style="font-weight: bold;">require</span> '<span style="font-weight: bold; text-decoration: underline;">request</span>)
+    (request uri
+      <span style="font-weight: bold;">:encoding</span> 'binary
+      <span style="font-weight: bold;">:complete</span> (<span style="font-weight: bold;">cl-function</span>
+                 (<span style="font-weight: bold;">lambda</span> (<span style="font-weight: bold; text-decoration: underline;">&amp;key</span> data response <span style="font-weight: bold; text-decoration: underline;">&amp;allow-other-keys</span>)
+                   (<span style="font-weight: bold;">let*</span> ((ext (<span style="font-weight: bold;">pcase</span> (request-response-header response <span style="font-style: italic;">"content-type"</span>)
+                                 (<span style="font-style: italic;">"image/jpeg"</span> <span style="font-style: italic;">".jpeg"</span>)
+                                 (<span style="font-style: italic;">"image/png"</span> <span style="font-style: italic;">".png"</span>)
+                                 (typ <span style="font-style: italic;">""</span>)))
+                          (fname (format <span style="font-style: italic;">"./%s%s"</span>
+                                         (format-time-string <span style="font-style: italic;">"%Y-%m-%d_%H-%M-%S"</span>
+                                                             (current-time))
+                                         ext)))
+                     (<span style="font-weight: bold;">with-temp-buffer</span>
+                       (insert data)
+                       (write-region nil nil fname))
+                     (insert (format <span style="font-style: italic;">"[[%s]]"</span> fname))))))))
 
-<div id="outline-container-org28d4375" class="outline-3">
-<h3 id="org28d4375"><span class="section-number-3">1.3.</span> その他</h3>
-<div class="outline-text-3" id="text-1-3">
-<ul class="org-ul">
-<li><a href="./m/macbook-linux-disable-boot-sound.html">LinuxをインストールしたMacbookで起動音を無効にする</a></li>
-<li><a href="./m/mivue-manager-wine.html">MiVue ManagerをWineで動かす</a></li>
-<li><a href="./misc-note.html">その他のメモ</a></li>
-</ul>
+(<span style="font-weight: bold;">push</span> '(<span style="font-style: italic;">"^</span><span style="font-weight: bold; font-style: italic;">\\</span><span style="font-weight: bold; font-style: italic;">(</span><span style="font-style: italic;">https?</span><span style="font-weight: bold; font-style: italic;">\\</span><span style="font-weight: bold; font-style: italic;">)</span><span style="font-style: italic;">://"</span> . my/org-insert-uri-image) dnd-protocol-alist)
+</pre>
 </div>
-</div>
-</div>
-
-<div id="outline-container-org718214e" class="outline-2">
-<h2 id="org718214e"><span class="section-number-2">2.</span> 雑記など</h2>
-<div class="outline-text-2" id="text-2">
 <p>
-TODO
+TODO: ローカルの画像もmvして同じようにやりたい
 </p>
-</div>
-</div>
 </div>
 <div id="postamble" class="status">
 
 <div id="postamble" class="status postamble">
 <a href="/">TOP</a>
-<p>Date: </p>
-<p>Last modified at: 2023-08-03 Thu 00:45</p>
+<p>Date: 2023-08-03 Thu 00:00</p>
+<p>Last modified at: 2023-08-03 Thu 00:07</p>
 </div>
 </div>
 </body>

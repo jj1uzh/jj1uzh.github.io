@@ -3,10 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
 <head>
-<!-- 2023-07-27 Thu 22:14 -->
+<!-- 2023-08-03 Thu 00:44 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Emacsメモ</title>
+<title>その他のメモ</title>
 <meta name="generator" content="Org Mode" />
 <style>
   #content { max-width: 60em; margin: auto; }
@@ -197,118 +197,61 @@
 </head>
 <body>
 <div id="content" class="content">
-<h1 class="title">Emacsメモ</h1>
-<div id="table-of-contents" role="doc-toc">
-<h2>&#30446;&#27425;</h2>
-<div id="text-table-of-contents" role="doc-toc">
-<ul>
-<li><a href="#orgc663780">1. org-mode</a>
-<ul>
-<li><a href="#org3ff0d69">1.1. drag-and-dropでブラウザから画像をダウンロードしてリンクを入れる</a></li>
-</ul>
-</li>
-<li><a href="#orge3b60ea">2. eshell</a></li>
-<li><a href="#org53635e9">3. lsp</a>
-<ul>
-<li><a href="#org49d0289">3.1. go-modeだけLSPでformat-on-saveする</a></li>
-</ul>
-</li>
-</ul>
-</div>
-</div>
+<h1 class="title">その他のメモ</h1>
+<dl class="org-dl">
+<dt>JISキーボードのMacでUS配列にしたときにチルダとかバックスラッシュを打つためのkarabiner-elementsの設定(2021-05-10)</dt><dd><ul class="org-ul">
+<li>international1 (_ キー) -&gt; `</li>
+<li>international3 (\ キー) -&gt; \</li>
+</ul></dd>
+</dl>
 
-<div id="outline-container-orgc663780" class="outline-2">
-<h2 id="orgc663780"><span class="section-number-2">1.</span> org-mode</h2>
-<div class="outline-text-2" id="text-1">
-</div>
-<div id="outline-container-org3ff0d69" class="outline-3">
-<h3 id="org3ff0d69"><span class="section-number-3">1.1.</span> drag-and-dropでブラウザから画像をダウンロードしてリンクを入れる</h3>
-<div class="outline-text-3" id="text-1-1">
-<p>
-request.elを使う．
-</p>
+
+<dl class="org-dl">
+<dt>ibusのトレイの文字の色を変える(2021-05-10)</dt><dd><ul class="org-ul">
+<li>dconf-editor</li>
+</ul></dd>
+</dl>
+
+
+<dl class="org-dl">
+<dt>ibusのcomponentをビルドした後，それを指定してibusを起動すると"Can not execute default config program" と出てエラー(2021-05-19)</dt><dd><ul class="org-ul">
+<li>例えばibus-skkのビルドでインストールのprefixが <i>usr/local のとき， /usr/local/share/ibus/component</i> に skk.xml だけしかない状態になっていると思われる．
+この場所に <i>usr/share/ibus/component</i> にある他のxmlファイルをリンクするなどすればおk&lt;/p&gt;</li>
+</ul></dd>
+</dl>
+
+
+<dl class="org-dl">
+<dt>CMakeで ~/.local 等のライブラリを使ってビルドする(2021-09-06)</dt><dd></dd>
+</dl>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp">(<span style="font-weight: bold;">defun</span> <span style="font-weight: bold;">my/org-insert-uri-image</span> (uri action)
-  (<span style="font-weight: bold;">if</span> (not (eq major-mode 'org-mode))
-      (dnd-open-file uri action) <span style="font-weight: bold; font-style: italic;">; </span><span style="font-weight: bold; font-style: italic;">if not in org-mode, use default function.</span>
-    (<span style="font-weight: bold;">require</span> '<span style="font-weight: bold; text-decoration: underline;">request</span>)
-    (request uri
-      <span style="font-weight: bold;">:encoding</span> 'binary
-      <span style="font-weight: bold;">:complete</span> (<span style="font-weight: bold;">cl-function</span>
-                 (<span style="font-weight: bold;">lambda</span> (<span style="font-weight: bold; text-decoration: underline;">&amp;key</span> data response <span style="font-weight: bold; text-decoration: underline;">&amp;allow-other-keys</span>)
-                   (<span style="font-weight: bold;">let*</span> ((ext (<span style="font-weight: bold;">pcase</span> (request-response-header response <span style="font-style: italic;">"content-type"</span>)
-                                 (<span style="font-style: italic;">"image/jpeg"</span> <span style="font-style: italic;">".jpeg"</span>)
-                                 (<span style="font-style: italic;">"image/png"</span> <span style="font-style: italic;">".png"</span>)
-                                 (typ <span style="font-style: italic;">""</span>)))
-                          (fname (format <span style="font-style: italic;">"./%s%s"</span>
-                                         (format-time-string <span style="font-style: italic;">"%Y-%m-%d_%H-%M-%S"</span>
-                                                             (current-time))
-                                         ext)))
-                     (<span style="font-weight: bold;">with-temp-buffer</span>
-                       (insert data)
-                       (write-region nil nil fname))
-                     (insert (format <span style="font-style: italic;">"[[%s]]"</span> fname))))))))
-
-(<span style="font-weight: bold;">push</span> '(<span style="font-style: italic;">"^</span><span style="font-weight: bold; font-style: italic;">\\</span><span style="font-weight: bold; font-style: italic;">(</span><span style="font-style: italic;">https?</span><span style="font-weight: bold; font-style: italic;">\\</span><span style="font-weight: bold; font-style: italic;">)</span><span style="font-style: italic;">://"</span> . my/org-insert-uri-image) dnd-protocol-alist)
+<pre class="src src-sh">cmake -DCMAKE_INSTALL_PREFIX=/home/user/.local -DCMAKE_POLICY_DEFAULT_CMP0074=NEW -D [PACKAGE]<span style="font-weight: bold; font-style: italic;">_ROOT</span>=/home/user/.local ..
 </pre>
 </div>
-</div>
-</div>
-</div>
 
-<div id="outline-container-orge3b60ea" class="outline-2">
-<h2 id="orge3b60ea"><span class="section-number-2">2.</span> eshell</h2>
-<div class="outline-text-2" id="text-2">
-<p>
-現状 vterm を使っていて特に不満は無いが， eshell も使ってみたら新たな世界が広がるかもしれない(？)のでセットアップしてみる．
-</p>
 
-<p>
-まずプロンプトで現状のzshのプロンプトを再現する：
-</p>
-<div class="org-src-container">
-<pre class="src src-emacs-lisp">(<span style="font-weight: bold;">setq</span> eshell-prompt-function
-      (<span style="font-weight: bold;">lambda</span> () (concat <span style="font-style: italic;">"\n"</span>
-                         (number-to-string eshell-last-command-status)
-                         <span style="font-style: italic;">" ["</span> (user-login-name) <span style="font-style: italic;">"@"</span> (system-name) <span style="font-style: italic;">" "</span> (eshell/pwd) <span style="font-style: italic;">"]\n&gt; "</span>)))
-(<span style="font-weight: bold;">setq</span> eshell-prompt-regexp <span style="font-style: italic;">"^[</span><span style="font-style: italic;">^</span><span style="font-style: italic;">&gt;]*&gt; "</span>)
-</pre>
-</div>
-<p>
-ただ困ったことに， <code>eshell-last-command-status</code> はEmacs内部で実装されているコマンド(ls,cdなど)に対しては変化しない．TODO．
-</p>
-</div>
-</div>
+<dl class="org-dl">
+<dt>fcitx5-configtoolでアイコンが表示されない(2021-09-23)</dt><dd><a href="https://wiki.archlinux.org/title/Qt#Configuration_of_Qt5_apps_under_environments_other_than_KDE_Plasma">https://wiki.archlinux.org/title/Qt#Configuration_of_Qt5_apps_under_environments_other_than_KDE_Plasma</a>
+<ul class="org-ul">
+<li>qt5ct をインストールして一度開き、設定を保存</li>
+<li>QT<sub>QPA</sub><sub>PLATFORMTHEME</sub>=qt5ct</li>
+</ul></dd>
+</dl>
 
-<div id="outline-container-org53635e9" class="outline-2">
-<h2 id="org53635e9"><span class="section-number-2">3.</span> lsp</h2>
-<div class="outline-text-2" id="text-3">
-</div>
-<div id="outline-container-org49d0289" class="outline-3">
-<h3 id="org49d0289"><span class="section-number-3">3.1.</span> go-modeだけLSPでformat-on-saveする</h3>
-<div class="outline-text-3" id="text-3-1">
-<p>
-<code>add-hook</code> の第4引数がnon-nilならばバッファローカルになる
-</p>
-<div class="org-src-container">
-<pre class="src src-emacs-lisp">(<span style="font-weight: bold;">with-eval-after-load</span> 'go-mode
-  (add-hook 'go-mode-hook
-            (<span style="font-weight: bold;">lambda</span> () (add-hook 'before-save-hook
-                                 (<span style="font-weight: bold;">lambda</span> () (<span style="font-weight: bold;">ignore-errors</span> (lsp-format-buffer)))
-                                 nil
-                                 'local))))
-</pre>
-</div>
-</div>
-</div>
-</div>
+
+<dl class="org-dl">
+<dt>LinuxでAirPodsに接続できない/ペアリングできない(2021-09-27)</dt><dd><ul class="org-ul">
+<li>/etc/bluetooth/main.conf で ControllerMode = bredr に変更</li>
+<li>一度ペアリングできたら戻しても大丈夫(と思われる)</li>
+</ul></dd>
+</dl>
 </div>
 <div id="postamble" class="status">
 
 <div id="postamble" class="status postamble">
 <a href="/">TOP</a>
-<p>Date: </p>
-<p>Last modified at: 2023-07-27 Thu 22:14</p>
+<p>Date: 2023-08-03 Thu 00:00</p>
+<p>Last modified at: 2023-08-03 Thu 00:44</p>
 </div>
 </div>
 </body>

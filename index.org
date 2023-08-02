@@ -2,43 +2,19 @@
 #+SETUPFILE: ./common.org
 #+OPTIONS: toc:nil
 
+#+MACRO: link-title (eval (let* ((path (progn (string-match "^\\[\\[\\(.+\\)\\.org\\]\\]$" $1) (match-string 1 $1))) (title (with-current-buffer (find-file-noselect (concat path ".org")) (cadar (org-collect-keywords '("TITLE")))))) (concat "[[" path ".html][" title "]]")))
+
 ** メモ
+*** Emacs
+- {{{link-title([[./emacs/org-dnd-image.org]])}}}
+
+*** i3
+TODO
+
+*** その他
 - [[./m/macbook-linux-disable-boot-sound.html][LinuxをインストールしたMacbookで起動音を無効にする]]
 - [[./m/mivue-manager-wine.html][MiVue ManagerをWineで動かす]]
+- {{{link-title([[./misc-note.org]])}}}
 
-*** Emacs
-- [[./emacs.html][Emacsメモ]]
-
-** 諸々
-- [[./a/2022-09-09-hatena-intern.html][はてなインターン2022に参加した]]
-
-** ページにするほどでもないメモ
-- JISキーボードのMacでUS配列にしたときにチルダとかバックスラッシュを打つためのkarabiner-elementsの設定(2021-05-10) ::
- - international1 (_ キー) -> `
- - international3 (\ キー) -> \
-
-
-- ibusのトレイの文字の色を変える(2021-05-10) ::
- - dconf-editor
-
-
-- ibusのcomponentをビルドした後，それを指定してibusを起動すると"Can not execute default config program" と出てエラー(2021-05-19) ::
- - 例えばibus-skkのビルドでインストールのprefixが /usr/local のとき， /usr/local/share/ibus/component/ に skk.xml だけしかない状態になっていると思われる．
-   この場所に /usr/share/ibus/component/ にある他のxmlファイルをリンクするなどすればおk</p>
-
-
-- CMakeで ~/.local 等のライブラリを使ってビルドする(2021-09-06) ::
-#+BEGIN_SRC sh
-cmake -DCMAKE_INSTALL_PREFIX=/home/user/.local -DCMAKE_POLICY_DEFAULT_CMP0074=NEW -D [PACKAGE]_ROOT=/home/user/.local ..
-#+END_SRC
-
-
-- fcitx5-configtoolでアイコンが表示されない(2021-09-23) ::
-  [[https://wiki.archlinux.org/title/Qt#Configuration_of_Qt5_apps_under_environments_other_than_KDE_Plasma]]
- - qt5ct をインストールして一度開き、設定を保存
- - QT_QPA_PLATFORMTHEME=qt5ct
-
-
-- LinuxでAirPodsに接続できない/ペアリングできない(2021-09-27) ::
- - /etc/bluetooth/main.conf で ControllerMode = bredr に変更
- - 一度ペアリングできたら戻しても大丈夫(と思われる)
+** 雑記など
+TODO

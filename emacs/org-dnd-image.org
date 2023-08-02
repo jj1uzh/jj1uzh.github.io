@@ -1,0 +1,30 @@
+#+TITLE: drag-and-dropでブラウザから画像をダウンロードしてリンクを入れる
+#+DATE: <2023-08-03 Thu>
+#+SETUPFILE: ../common.org
+
+request.elを使う．
+#+BEGIN_SRC emacs-lisp
+(defun my/org-insert-uri-image (uri action)
+  (if (not (eq major-mode 'org-mode))
+      (dnd-open-file uri action)
+    (require 'request)
+    (request uri
+      :encoding 'binary
+      :complete (cl-function
+                 (lambda (&key data response &allow-other-keys)
+                   (let* ((ext (pcase (request-response-header response "content-type")
+                                 ("image/jpeg" ".jpeg")
+                                 ("image/png" ".png")
+                                 (typ "")))
+                          (fname (format "./%s%s"
+                                         (format-time-string "%Y-%m-%d_%H-%M-%S"
+                                                             (current-time))
+                                         ext)))
+                     (with-temp-buffer
+                       (insert data)
+                       (write-region nil nil fname))
+                     (insert (format "[[%s]]" fname))))))))
+
+(push '("^\\(https?\\)://" . my/org-insert-uri-image) dnd-protocol-alist)
+#+END_SRC
+TODO: ローカルの画像もmvして同じようにやりたい
