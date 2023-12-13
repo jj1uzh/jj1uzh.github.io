@@ -3,10 +3,11 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
 <head>
-<!-- 2023-07-26 Wed 00:47 -->
+<!-- 2023-12-13 Wed 14:11 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>LinuxをインストールしたMacbookで起動音を無効にする</title>
+<meta name="author" content="miyachi" />
 <meta name="generator" content="Org Mode" />
 <style>
   #content { max-width: 60em; margin: auto; }
@@ -202,9 +203,9 @@
 <h2>&#30446;&#27425;</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgda27dc5">1. 環境</a></li>
-<li><a href="#orgd98599f">2. 手順</a></li>
-<li><a href="#orge79d8e7">3. 参考</a></li>
+<li><a href="#org50ec247">1. 環境</a></li>
+<li><a href="#org079f431">2. 手順</a></li>
+<li><a href="#org5ea7afb">3. 参考</a></li>
 </ul>
 </div>
 </div>
@@ -212,8 +213,8 @@
 ※ 自己責任でお願いします。
 </p>
 
-<div id="outline-container-orgda27dc5" class="outline-2">
-<h2 id="orgda27dc5"><span class="section-number-2">1.</span> 環境</h2>
+<div id="outline-container-org50ec247" class="outline-2">
+<h2 id="org50ec247"><span class="section-number-2">1.</span> 環境</h2>
 <div class="outline-text-2" id="text-1">
 <ul class="org-ul">
 <li><code>Linux 5.15.10-arch1-1</code></li>
@@ -222,8 +223,8 @@
 </div>
 </div>
 
-<div id="outline-container-orgd98599f" class="outline-2">
-<h2 id="orgd98599f"><span class="section-number-2">2.</span> 手順</h2>
+<div id="outline-container-org079f431" class="outline-2">
+<h2 id="org079f431"><span class="section-number-2">2.</span> 手順</h2>
 <div class="outline-text-2" id="text-2">
 <div class="org-src-container">
 <pre class="src src-sh">$&gt; efivar -l | grep <span style="font-style: italic;">'SystemAudioVolume'</span>
@@ -233,7 +234,7 @@
 </div>
 
 <div class="org-src-container">
-<pre class="src src-sh">$&gt; efivar -n <span style="font-style: italic;">"$(</span><span style="font-weight: bold;">efivar -l | grep 'SystemAudioVolume$'</span><span style="font-style: italic;">)"</span> -p
+<pre class="src src-sh">$&gt; efivar -n <span style="font-style: italic;">"$(efivar -l | grep 'SystemAudioVolume$')"</span> -p
 GUID: 7c436110-ab2a-4bbb-a880-fe41995c9f82
 Name: <span style="font-style: italic;">"SystemAudioVolume"</span>
 Attributes:
@@ -241,7 +242,7 @@ Attributes:
         Boot Service Access
         Runtime Service Access
 Value:
-00000000  &lt;&#12394;&#12435;&#12363;0&#12376;&#12419;&#12394;&#12356;&#20516;&gt;                                                |<span style="font-weight: bold;">.</span>               |
+00000000  &lt;&#12394;&#12435;&#12363;0&#12376;&#12419;&#12394;&#12356;&#20516;&gt;                                                |.               |
 </pre>
 </div>
 
@@ -264,8 +265,8 @@ Value:
 </div>
 </div>
 
-<div id="outline-container-orge79d8e7" class="outline-2">
-<h2 id="orge79d8e7"><span class="section-number-2">3.</span> 参考</h2>
+<div id="outline-container-org5ea7afb" class="outline-2">
+<h2 id="org5ea7afb"><span class="section-number-2">3.</span> 参考</h2>
 <div class="outline-text-2" id="text-3">
 <ul class="org-ul">
 <li><a href="http://atodorov.org/blog/2015/04/27/disabling-macbook-startup-sound-in-linux/">http://atodorov.org/blog/2015/04/27/disabling-macbook-startup-sound-in-linux/</a></li>
@@ -275,11 +276,11 @@ Value:
 </div>
 <div id="postamble" class="status">
 
-<div id="postamble" class="status postamble">
-<a href="/">TOP</a>
-<p>Date: </p>
-<p>Last modified at: 2022-09-14 Wed 21:01</p>
-</div>
+<footer id="postamble" class="status postamble">
+  <a href="/">TOP</a>
+  <p>Date: </p>
+  <p>Last modified at: 2023-01-26 Thu 18:02</p>
+</footer>
 </div>
 </body>
 </html>

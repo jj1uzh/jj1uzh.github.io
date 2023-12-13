@@ -1,5 +1,10 @@
 SRC:=$(shell find . -type f -name '*.org' -not -name 'common.org' -print)
 DST:=$(patsubst %.org,%.html,$(SRC))
+ifeq ($(shell uname),Darwin)
+OPEN:=open
+else
+OPEN:=firefox
+endif
 
 all: $(DST)
 
@@ -7,7 +12,8 @@ all: $(DST)
 	emacs $< -Q --batch --script settings.el -f org-html-export-to-html --kill
 
 run: all
-	php -S localhost:8080
+	$(OPEN) 'http://localhost:8080'
+	php -S 'localhost:8080'
 
 emacs-htmlize:
 	git clone 'https://github.com/hniksic/emacs-htmlize.git'

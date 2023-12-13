@@ -1,0 +1,11 @@
+#+TITLE: AUCTeXのLaTeX-mode-hookでprettify-symbols-modeを有効にしても反映されない問題
+#+DATE: <2023-12-13 Wed>
+#+SETUPFILE: ../common.org
+
+LaTeX-mode-hook で ~(prettify-symbols-mode 1)~ すると，
+~prettify-symbols-mode~ が有効にも関わらず，prettifyされない状態での表示になってしまう．
+
+([[https://emacs.stackexchange.com/questions/20388/function-call-inside-mode-hook-has-no-effect-but-manual-execution-of-function-fr]] 等)
+
+結論としては[[[[https://www.gnu.org/software/auctex/manual/auctex.html#Prettifying]]][マニュアル]]にあるように
+~TeX-mode~ に記述すればよかった．

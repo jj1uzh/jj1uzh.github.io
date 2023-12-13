@@ -7,9 +7,9 @@
 ** メモ
 *** Emacs
 - {{{link-title([[./emacs/org-dnd-image.org]])}}}
-
-*** i3
-TODO
+- {{{link-title([[./emacs/auctex-prettify-symbols.org]])}}}
+- {{{link-title([[./emacs/lsp.org]])}}}
+- mu4eセットアップ：TODO
 
 *** その他
 - [[./m/macbook-linux-disable-boot-sound.html][LinuxをインストールしたMacbookで起動音を無効にする]]

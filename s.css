@@ -4,7 +4,7 @@ body {
     line-height: 110%;
 }
 
-.postamble {
+footer.postamble {
     border-top: 1px solid black;
     padding: 0.5em;
 }
@@ -15,4 +15,10 @@ body {
 
 img {
     width: 10em;
+}
+
+h1.title {
+    line-height: 1em;
+    text-align: left;
+    margin: 1em;
 }
